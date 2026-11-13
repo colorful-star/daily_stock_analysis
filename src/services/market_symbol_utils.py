@@ -27,6 +27,7 @@ _SUFFIX_MARKET_SPECS: tuple[SuffixMarketSpec, ...] = (
     # Taiwan support mirrors the same suffix-only pattern; keep it here so the
     # shared helpers stay complete for all yfinance-only offshore markets.
     SuffixMarketSpec("tw", ("TW", "TWO"), (4, 5, 6)),
+    SuffixMarketSpec("de", ("DE",), (1, 2, 3, 4, 5, 6)),
 )
 
 _MARKET_TO_SPEC = {spec.market: spec for spec in _SUFFIX_MARKET_SPECS}
@@ -59,7 +60,8 @@ def get_suffix_market(stock_code: str) -> Optional[str]:
     spec = _SUFFIX_TO_SPEC.get(suffix)
     if spec is None:
         return None
-    if not (base.isdigit() and len(base) in spec.digit_lengths):
+    valid_base = base.isdigit() if spec.market != "de" else base.replace("-", "").isalnum()
+    if not (valid_base and len(base) in spec.digit_lengths):
         return None
     return spec.market
 
@@ -105,7 +107,7 @@ def suffix_base_lookup_allowed(canonical_code: str) -> bool:
     follow-up index work is not part of this issue.
     """
 
-    return get_suffix_market(canonical_code) in {"jp", "kr"}
+    return get_suffix_market(canonical_code) in {"jp", "kr", "de"}
 
 
 def market_suffixes(market: str) -> tuple[str, ...]:

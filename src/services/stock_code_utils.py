@@ -59,9 +59,10 @@ _SUFFIX_DIGIT_LENS: dict = {
     # `.TWO` listed before `.TW` as a defensive ordering convention.
     ".TWO": (4, 5, 6),
     ".TW": (4, 5, 6),
+    ".DE": (1, 2, 3, 4, 5, 6),
 }
 
-_PRESERVE_SUFFIXES = {".T", ".KS", ".KQ", ".TW", ".TWO"}
+_PRESERVE_SUFFIXES = {".T", ".KS", ".KQ", ".TW", ".TWO", ".DE"}
 _US_INDEX_CODES = {
     "SPX",
     "^GSPC",

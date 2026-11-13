@@ -38,7 +38,7 @@ except ImportError:
     )
 
 # Market -> exchange code (exchange-calendars)
-MARKET_EXCHANGE = {"cn": "XSHG", "hk": "XHKG", "us": "XNYS", "jp": "XTKS", "kr": "XKRX", "tw": "XTAI"}
+MARKET_EXCHANGE = {"cn": "XSHG", "hk": "XHKG", "us": "XNYS", "jp": "XTKS", "kr": "XKRX", "tw": "XTAI", "de": "XETR"}
 
 # Market -> IANA timezone for "today"
 MARKET_TIMEZONE = {
@@ -48,6 +48,7 @@ MARKET_TIMEZONE = {
     "jp": "Asia/Tokyo",
     "kr": "Asia/Seoul",
     "tw": "Asia/Taipei",
+    "de": "Europe/Berlin",
 }
 
 # P0 market phase baseline (Issue #1386). This is an intentionally small
@@ -127,7 +128,7 @@ def get_market_for_stock(code: str) -> Optional[str]:
     Infer market region for a stock code.
 
     Returns:
-        'cn' | 'hk' | 'us' | 'jp' | 'kr' | 'tw' | None (None = unrecognized, fail-open: treat as open)
+        'cn' | 'hk' | 'us' | 'jp' | 'kr' | 'tw' | 'de' | None (None = unrecognized, fail-open: treat as open)
     """
     if not code or not isinstance(code, str):
         return None
